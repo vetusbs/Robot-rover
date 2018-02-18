@@ -1,0 +1,29 @@
+group 'com.vetus'
+version '1.0-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.3'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile("org.springframework.boot:spring-boot-starter-web:1.5.10.RELEASE")
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.2'
+    compile group: 'org.springframework', name: 'spring-core', version: '5.0.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-tx', version: '5.0.3.RELEASE'
+
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.15.0'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+    testCompile group: 'org.springframework', name: 'spring-test', version: '5.0.3.RELEASE'
+    testCompile 'junit:junit:4.12'
+    testCompile "org.springframework.boot:spring-boot-starter-test:1.5.10.RELEASE"
+}

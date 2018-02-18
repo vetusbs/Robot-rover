@@ -1,0 +1,16 @@
+### OS X ###
+.DS_Store
+
+### Gradle ###
+.gradle
+build
+out
+classes
+build-config
+gradle.properties
+### Intellij ###
+.idea
+
+### Docker ###
+docker/logs
+
