@@ -6,7 +6,10 @@ import com.vetus.robotic.rover.scenario.*;
 import com.vetus.robotic.rover.services.RoverService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.util.ClassUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,13 +26,14 @@ public class RoverRobotConfig {
         return new RoverRobot(new State(initialState.getPosition(), initialState.getDirection()), initialState.getPlateau());
     }
 
+
     @Bean
     public InitialState initialState(ObjectMapper objectMapper) throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("initial-state.json").getFile());
+        ClassLoader defaultClassLoader = ClassUtils.getDefaultClassLoader();
+        ResourceLoader resourceLoader = new DefaultResourceLoader(defaultClassLoader);
+        Resource resource = resourceLoader.getResource("classpath:initial_state.json");
 
-        InitialState initialState = objectMapper.readValue(file, InitialState.class);
-        return initialState;
+        return objectMapper.readValue(resource.getInputStream(), InitialState.class);
     }
 
     @Bean
